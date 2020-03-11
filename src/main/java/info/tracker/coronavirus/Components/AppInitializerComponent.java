@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 @Component
-public class AppInitializer {
+public class AppInitializerComponent {
     @Autowired
     CoronaVirusDataService dataService;
 
