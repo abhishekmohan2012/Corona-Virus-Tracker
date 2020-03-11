@@ -1,19 +1,22 @@
-package info.tracker.coronavirus.Component;
+package info.tracker.coronavirus.Components;
 
 import info.tracker.coronavirus.exceptions.APIRuntimeException;
-import info.tracker.coronavirus.services.CoronaVirusDataServiceImpl;
+import info.tracker.coronavirus.services.CoronaVirusDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 @Component
-public class APIReader {
-
+public class AppInitializer {
     @Autowired
-    CoronaVirusDataServiceImpl dataService;
+    CoronaVirusDataService dataService;
 
-    public void readFromWebAPI() throws APIRuntimeException, IOException {
+    @PostConstruct
+    @Scheduled(cron = "* * 1 * * *")
+    public void appInitializer() throws APIRuntimeException, IOException {
         dataService.parseVirusData();
     }
 
