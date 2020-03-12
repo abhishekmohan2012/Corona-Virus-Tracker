@@ -15,7 +15,7 @@ public class AppInitializerComponent {
     CoronaVirusDataService dataService;
 
     @PostConstruct
-    @Scheduled(cron = "* * 1 * * *")
+    @Scheduled(cron = "0 */30 * ? * *")
     public void init() throws APIRuntimeException, IOException {
         dataService.parseVirusData();
     }
