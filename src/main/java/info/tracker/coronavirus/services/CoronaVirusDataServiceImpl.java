@@ -7,10 +7,8 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
@@ -42,6 +40,8 @@ public class CoronaVirusDataServiceImpl implements CoronaVirusDataService, Const
             }
             HttpEntity httpEntity = response.getEntity();
             apiOutput = EntityUtils.toString(httpEntity);
+        } catch (IOException | APIRuntimeException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,21 +53,31 @@ public class CoronaVirusDataServiceImpl implements CoronaVirusDataService, Const
         FileUtils.copyURLToFile(new URL(VIRUS_DATA_URL), file);
     }
 
-    public void parseVirusData() throws IOException {
+    public void parseVirusData() {
         List<CoronaDataModel> newStats = new ArrayList<>();
-        StringReader csvReader = new StringReader(fetchVirusData());
-        Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvReader);
-        for (CSVRecord record : records) {
-            CoronaDataModel dataModel = new CoronaDataModel();
-            dataModel.setState(record.get(STATE));
-            dataModel.setCountry(record.get(COUNTRY));
-            int latestCase = Integer.parseInt(record.get(record.size() - 1));
-            int prevDayCase = Integer.parseInt(record.get(record.size() - 2));
-            dataModel.setLatestCases(latestCase);
-            dataModel.setDiffFromPrevDay(latestCase - prevDayCase);
-            newStats.add(dataModel);
+        try {
+            StringReader csvReader = new StringReader(fetchVirusData());
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvReader);
+            for (CSVRecord record : records) {
+                CoronaDataModel dataModel = new CoronaDataModel();
+                dataModel.setState(record.get(STATE));
+                dataModel.setCountry(record.get(COUNTRY));
+                boolean valueUpdated = (!record.get(record.size() - 1).contentEquals(""));
+                dataModel.setUpdated(valueUpdated);
+                if(valueUpdated) {
+                    int latestCase = Integer.parseInt(record.get(record.size() - 1));
+                    int prevDayCase = Integer.parseInt(record.get(record.size() - 2));
+                    dataModel.setLatestCases(latestCase);
+                    dataModel.setDiffFromPrevDay(latestCase - prevDayCase);
+                }
+                newStats.add(dataModel);
+            }
+            this.allStats = newStats;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        this.allStats = newStats;
     }
 
     public List<CoronaDataModel> getAllStats() {

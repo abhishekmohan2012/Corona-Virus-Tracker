@@ -5,6 +5,7 @@ public class CoronaDataModel {
     private String country;
     private int latestCases;
     private int diffFromPrevDay;
+    private boolean updated;
 
     public String getState() {
         return state;
@@ -38,13 +39,22 @@ public class CoronaDataModel {
         this.diffFromPrevDay = diffFromPrevDay;
     }
 
+    public boolean isUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(boolean updated) {
+        this.updated = updated;
+    }
+
     @Override
     public String toString() {
         return "CoronaDataModel{" +
                 "state='" + state + '\'' +
                 ", country='" + country + '\'' +
-                ", infectedCase=" + latestCases +
+                ", latestCases=" + latestCases +
                 ", diffFromPrevDay=" + diffFromPrevDay +
+                ", updated=" + updated +
                 '}';
     }
 }

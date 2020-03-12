@@ -32,9 +32,9 @@
             <th>Changes since last day</th>
         </tr>
         <tr th:each="locationsStat : ${locationsStats}">
-            <td th:text="${locationsStat.state}"></td>
             <td th:text="${locationsStat.country}"></td>
-            <td th:text="${locationsStat.latestCases}">0</td>
+            <td th:text="${locationsStat.state}"></td>
+            <td th:text="${locationsStat.updated}? ${locationsStat.latestCases} : 'Not Updated'">0</td>
             <td th:text="${locationsStat.diffFromPrevDay}">0</td>
         </tr>
     </table>
