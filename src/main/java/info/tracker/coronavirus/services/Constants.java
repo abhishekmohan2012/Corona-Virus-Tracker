@@ -8,4 +8,6 @@ public interface Constants {
     public static final int SUCCESS = 200;
     public static final String STATE = "Province/State";
     public static final String COUNTRY = "Country/Region";
+    public static final String LATITUDE = "Lat";
+    public static final String LONGITUDE = "Long";
 }

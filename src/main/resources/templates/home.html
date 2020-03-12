@@ -7,6 +7,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style type="text/css">
+        .iconStyle{
+            height:20px;
+            margin-left:5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,14 +35,20 @@
         <tr>
             <th>Country</th>
             <th>State</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
             <th>Total cases reported</th>
             <th>Changes since last day</th>
         </tr>
         <tr th:each="locationsStat : ${locationsStats}">
             <td th:text="${locationsStat.country}"></td>
             <td th:text="${locationsStat.state}"></td>
+            <td th:text="${locationsStat.longitude}"></td>
+            <td th:text="${locationsStat.latitude}"></td>
             <td th:text="${locationsStat.updated}? ${locationsStat.latestCases} : 'Not Updated'">0</td>
-            <td th:text="${locationsStat.diffFromPrevDay}">0</td>
+            <td th:if="${locationsStat.diffFromPrevDay == 0}">0</td>
+            <td th:if="${locationsStat.diffFromPrevDay > 0}"><span th:text="${locationsStat.diffFromPrevDay}"></span><img src="sort-up.png" class="iconStyle"></img></td>
+            <td th:if="${locationsStat.diffFromPrevDay < 0}"><span th:text="${locationsStat.diffFromPrevDay}"></span><img src="sort-down.png" class="iconStyle"></img></td>
         </tr>
     </table>
 </div>

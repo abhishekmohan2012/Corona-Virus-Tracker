@@ -70,6 +70,8 @@ public class CoronaVirusDataServiceImpl implements CoronaVirusDataService, Const
                     dataModel.setLatestCases(latestCase);
                     dataModel.setDiffFromPrevDay(latestCase - prevDayCase);
                 }
+                dataModel.setLatitude(Double.parseDouble(record.get(LATITUDE)));
+                dataModel.setLongitude(Double.parseDouble(record.get(LONGITUDE)));
                 newStats.add(dataModel);
             }
             this.allStats = newStats;

@@ -15,9 +15,22 @@ public class AppInitializerComponent {
     CoronaVirusDataService dataService;
 
     @PostConstruct
-    @Scheduled(cron = "0 */30 * ? * *")
+    @Scheduled(cron = "0 */10 * ? * *")
     public void init() throws APIRuntimeException, IOException {
-        dataService.parseVirusData();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    dataService.parseVirusData();
+                } catch (APIRuntimeException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        //System.out.println("Updated");
     }
 
     public void downloadCSV() {
