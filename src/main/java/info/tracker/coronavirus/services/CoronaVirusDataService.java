@@ -1,17 +1,15 @@
 package info.tracker.coronavirus.services;
 
 import info.tracker.coronavirus.exceptions.APIRuntimeException;
-import info.tracker.coronavirus.models.CoronaCountryModel;
+import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.Iterator;
 
 public interface CoronaVirusDataService {
 
-    public String fetchVirusData() throws APIRuntimeException, IOException;
+    String fetchVirusData(String uri) throws APIRuntimeException, IOException;
 
-    public void parseVirusData() throws APIRuntimeException, IOException;
-
-    public Map<String, CoronaCountryModel> getCountryDataMap();
+    Iterator<CSVRecord> parseCSVIterator(String uri);
 
 }

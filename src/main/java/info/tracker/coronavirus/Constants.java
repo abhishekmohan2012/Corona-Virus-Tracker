@@ -1,4 +1,4 @@
-package info.tracker.coronavirus.services;
+package info.tracker.coronavirus;
 
 public interface Constants {
 

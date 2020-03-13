@@ -1,7 +1,8 @@
 package info.tracker.coronavirus.Components;
 
+import info.tracker.coronavirus.Constants;
 import info.tracker.coronavirus.exceptions.APIRuntimeException;
-import info.tracker.coronavirus.services.CoronaVirusDataService;
+import info.tracker.coronavirus.services.CoronaVirusDataImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -10,10 +11,10 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 @Component
-public class AppInitializerComponent {
+public class AppInitializerComponent implements Constants {
 
     @Autowired
-    CoronaVirusDataService dataService;
+    CoronaVirusDataImpl virusData;
 
     @PostConstruct
     @Scheduled(cron = "0 */10 * ? * *")
@@ -21,13 +22,7 @@ public class AppInitializerComponent {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    dataService.parseVirusData();
-                } catch (APIRuntimeException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                virusData.setData(VIRUS_DATA_URL);
             }
         }).start();
     }
