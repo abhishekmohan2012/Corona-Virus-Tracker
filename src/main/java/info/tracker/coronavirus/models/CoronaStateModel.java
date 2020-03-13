@@ -1,8 +1,7 @@
 package info.tracker.coronavirus.models;
 
-public class CoronaDataModel {
+public class CoronaStateModel {
     private String state;
-    private String country;
     private int latestCases;
     private int diffFromPrevDay;
     private boolean updated;
@@ -15,14 +14,6 @@ public class CoronaDataModel {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public int getLatestCases() {
@@ -67,9 +58,8 @@ public class CoronaDataModel {
 
     @Override
     public String toString() {
-        return "CoronaDataModel{" +
+        return "CoronaStateModel{" +
                 "state='" + state + '\'' +
-                ", country='" + country + '\'' +
                 ", latestCases=" + latestCases +
                 ", diffFromPrevDay=" + diffFromPrevDay +
                 ", updated=" + updated +

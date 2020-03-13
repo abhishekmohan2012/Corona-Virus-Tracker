@@ -11,6 +11,7 @@ import java.io.IOException;
 
 @Component
 public class AppInitializerComponent {
+
     @Autowired
     CoronaVirusDataService dataService;
 
@@ -29,21 +30,5 @@ public class AppInitializerComponent {
                 }
             }
         }).start();
-
-        //System.out.println("Updated");
-    }
-
-    public void downloadCSV() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    dataService.fileDownloader();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t.start();
     }
 }

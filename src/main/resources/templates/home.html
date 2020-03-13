@@ -34,17 +34,11 @@
     <table class="table">
         <tr>
             <th>Country</th>
-            <th>State</th>
-            <th>Longitude</th>
-            <th>Latitude</th>
             <th>Total cases reported</th>
             <th>Changes since last day</th>
         </tr>
         <tr th:each="locationsStat : ${locationsStats}">
             <td th:text="${locationsStat.country}"></td>
-            <td th:text="${locationsStat.state}"></td>
-            <td th:text="${locationsStat.longitude}"></td>
-            <td th:text="${locationsStat.latitude}"></td>
             <td th:text="${locationsStat.updated}? ${locationsStat.latestCases} : 'Not Updated'">0</td>
             <td th:if="${locationsStat.diffFromPrevDay == 0}">0</td>
             <td th:if="${locationsStat.diffFromPrevDay > 0}"><span th:text="${locationsStat.diffFromPrevDay}"></span><img src="sort-up.png" class="iconStyle"></img></td>
