@@ -2,7 +2,6 @@ package info.tracker.coronavirus.Components;
 
 import info.tracker.coronavirus.Constants;
 import info.tracker.coronavirus.exceptions.APIRuntimeException;
-import info.tracker.coronavirus.services.CoronaVirusDataImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

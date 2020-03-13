@@ -1,7 +1,7 @@
 package info.tracker.coronavirus.Controllers;
 
 import info.tracker.coronavirus.models.CoronaCountryModel;
-import info.tracker.coronavirus.services.CoronaVirusDataImpl;
+import info.tracker.coronavirus.Components.CoronaVirusDataImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

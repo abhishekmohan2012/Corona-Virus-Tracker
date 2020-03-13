@@ -1,4 +1,4 @@
-package info.tracker.coronavirus.services;
+package info.tracker.coronavirus.Components;
 
 import info.tracker.coronavirus.models.CoronaCountryModel;
 
