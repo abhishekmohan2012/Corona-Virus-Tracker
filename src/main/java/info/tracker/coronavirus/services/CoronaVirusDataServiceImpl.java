@@ -46,7 +46,7 @@ public class CoronaVirusDataServiceImpl implements CoronaVirusDataService, Const
     public Iterator<CSVRecord> parseCSVIterator(String uri) {
         Iterable<CSVRecord> records = null;
         try {
-            StringReader csvReader = new StringReader(fetchVirusData(VIRUS_DATA_URL));
+            StringReader csvReader = new StringReader(fetchVirusData(uri));
             records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvReader);
         } catch (IOException e) {
             e.printStackTrace();

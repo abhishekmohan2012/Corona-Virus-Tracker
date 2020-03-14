@@ -10,4 +10,6 @@ public interface CoronaVirusData {
 
     Map<String, CoronaCountryModel> getCountryDataMap();
 
+    void setCountryDataMap();
+
 }

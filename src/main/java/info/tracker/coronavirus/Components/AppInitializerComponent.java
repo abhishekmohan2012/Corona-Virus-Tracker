@@ -22,6 +22,8 @@ public class AppInitializerComponent implements Constants {
             @Override
             public void run() {
                 virusData.setData(VIRUS_DATA_URL);
+                virusData.setDeathData(DEATH_DATA_URL);
+                virusData.setCountryDataMap();
             }
         }).start();
     }

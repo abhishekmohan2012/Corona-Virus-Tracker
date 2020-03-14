@@ -11,6 +11,7 @@ public class CoronaCountryModel {
     private boolean updated;
     private Double longitude;
     private Double latitude;
+    private int death;
 
     public String getCountry() {
         return country;
@@ -68,6 +69,14 @@ public class CoronaCountryModel {
         this.latitude = latitude;
     }
 
+    public int getDeath() {
+        return death;
+    }
+
+    public void setDeath(int death) {
+        this.death = death;
+    }
+
     @Override
     public String toString() {
         return "CoronaCountryModel{" +
@@ -78,6 +87,7 @@ public class CoronaCountryModel {
                 ", updated=" + updated +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
+                ", death=" + death +
                 '}';
     }
 }

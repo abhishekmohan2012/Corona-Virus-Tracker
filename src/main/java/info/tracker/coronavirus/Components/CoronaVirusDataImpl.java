@@ -1,6 +1,5 @@
 package info.tracker.coronavirus.Components;
 
-import info.tracker.coronavirus.Components.CoronaVirusData;
 import info.tracker.coronavirus.Constants;
 import info.tracker.coronavirus.models.CoronaCountryModel;
 import info.tracker.coronavirus.models.CoronaStateModel;
@@ -31,6 +30,13 @@ public class CoronaVirusDataImpl implements CoronaVirusData, Constants {
             newStats.put(record.get(COUNTRY), setCoronaCountyModel(record));
         }
         countryDataMap.putAll(newStats);
+    }
+
+    public void setDeathData(String uri) {
+        for (Iterator<CSVRecord> it = dataService.parseCSVIterator(uri); it.hasNext(); ) {
+            CSVRecord record = it.next();
+            setCoronaCountryModelDeathData(record);
+        }
     }
 
     private CoronaCountryModel setCoronaCountyModel(CSVRecord record) {
@@ -81,6 +87,27 @@ public class CoronaVirusDataImpl implements CoronaVirusData, Constants {
         model.setLatitude(Double.parseDouble(record.get(LATITUDE)));
         model.setLongitude(Double.parseDouble(record.get(LONGITUDE)));
         return model;
+    }
+
+    private void setCoronaCountryModelDeathData(CSVRecord record) {
+        CoronaCountryModel model = newStats.get(record.get(COUNTRY));
+        int death = (!record.get(record.size() - 1).isEmpty()) ? Integer.parseInt(record.get(record.size() - 1)) : 0;
+        if(model.getDeath() > 0) death += model.getDeath();
+        model.setDeath(death);
+        if(!record.get(STATE).isEmpty()) setCoronaStateModelDeathData(record, model);
+    }
+
+    private void setCoronaStateModelDeathData(CSVRecord record, CoronaCountryModel model) {
+        for (CoronaStateModel stateModel : model.getStateModelsList()) {
+            if(record.get(STATE).contentEquals(stateModel.getState())) {
+                int death = (!record.get(record.size() - 1).isEmpty()) ? Integer.parseInt(record.get(record.size() - 1)) : 0;
+                stateModel.setDeath(death);
+            }
+        }
+    }
+
+    public void setCountryDataMap() {
+        countryDataMap.putAll(newStats);
     }
 
     private Map<String, CoronaCountryModel> getSortedSet() {

@@ -26,9 +26,11 @@ public class HomeController {
             }
             int totalReportedCases = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getLatestCases()).sum();
             int totalNewCases = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getDiffFromPrevDay()).sum();
+            int totalDeaths = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getDeath()).sum();
             model.addAttribute("locationsStats", countryStats);
             model.addAttribute("totalReportedCases", totalReportedCases);
             model.addAttribute("totalNewCases", totalNewCases);
+            model.addAttribute("totalDeaths", totalDeaths);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -26,8 +26,12 @@
         <p class="lead">Total cases reported as of Today</p>
         <hr class="my-4">
         <p>
-            <span>New Cases reported since previous day</span>
+            <span>New Cases reported since previous day : </span>
             <span th:text="${totalNewCases}"></span>
+        </p>
+        <p>
+            <span>Total Deaths : </span>
+            <span th:text="${totalDeaths}"></span>
         </p>
     </div>
 
@@ -36,13 +40,15 @@
             <th>Country</th>
             <th>Total cases reported</th>
             <th>Changes since last day</th>
+            <th>Total Death(s)</th>
         </tr>
         <tr th:each="locationsStat : ${locationsStats}">
             <td th:text="${locationsStat.country}"></td>
             <td th:text="${locationsStat.updated}? ${locationsStat.latestCases} : 'Not Updated'">0</td>
             <td th:if="${locationsStat.diffFromPrevDay == 0}">0</td>
             <td th:if="${locationsStat.diffFromPrevDay > 0}"><span th:text="${locationsStat.diffFromPrevDay}"></span><img src="sort-up.png" class="iconStyle"></img></td>
-            <td th:if="${locationsStat.diffFromPrevDay < 0}"><span th:text="${locationsStat.diffFromPrevDay}"></span><img src="sort-down.png" class="iconStyle"></img></td>
+            <td th:if="${locationsStat.diffFromPrevDay < 0}"><span th:text="${-locationsStat.diffFromPrevDay}"></span><img src="sort-down.png" class="iconStyle"></img></td>
+            <td th:text="${locationsStat.death}"></td>
         </tr>
     </table>
 </div>
