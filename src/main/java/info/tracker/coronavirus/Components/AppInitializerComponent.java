@@ -16,7 +16,7 @@ public class AppInitializerComponent implements Constants {
     CoronaVirusDataImpl virusData;
 
     @PostConstruct
-    @Scheduled(cron = "0 0 6 * * ?")
+    @Scheduled(cron = "0 */30 * ? * *")
     public void init() throws APIRuntimeException, IOException {
         new Thread(new Runnable() {
             @Override

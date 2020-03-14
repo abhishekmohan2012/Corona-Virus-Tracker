@@ -18,17 +18,17 @@ public class CoronaVirusDataImpl implements CoronaVirusData, Constants {
     CoronaVirusDataService dataService;
 
     private Map<String, CoronaCountryModel> countryDataMap = new TreeMap<>();
+    private Map<String, CoronaCountryModel> newStats;
 
     public Map<String, CoronaCountryModel> getCountryDataMap() {
         return getSortedSet();
     }
 
     public void setData(String uri) {
-        Map<String, CoronaCountryModel> newStats = new HashMap<>();
+        newStats = new TreeMap<>();
         for (Iterator<CSVRecord> it = dataService.parseCSVIterator(uri); it.hasNext(); ) {
             CSVRecord record = it.next();
-            countryDataMap.put(record.get(COUNTRY), setCoronaCountyModel(record));
-            newStats.putAll(countryDataMap);
+            newStats.put(record.get(COUNTRY), setCoronaCountyModel(record));
         }
         countryDataMap.putAll(newStats);
     }
@@ -37,8 +37,8 @@ public class CoronaVirusDataImpl implements CoronaVirusData, Constants {
         CoronaCountryModel model;
         int latestCase = Integer.parseInt(record.get(record.size() - 1));
         int prevDayCase = Integer.parseInt(record.get(record.size() - 2));
-        if (countryDataMap.containsKey(record.get(COUNTRY))) {
-            model = countryDataMap.get(record.get(COUNTRY));
+        if (newStats.containsKey(record.get(COUNTRY))) {
+            model = newStats.get(record.get(COUNTRY));
             boolean valueUpdated = (!record.get(record.size() - 1).isEmpty());
             if (!valueUpdated) {
                 model.setUpdated(valueUpdated);
