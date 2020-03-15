@@ -92,8 +92,11 @@ public class CoronaVirusDataImpl implements CoronaVirusData, Constants {
     private void setCoronaCountryModelDeathData(CSVRecord record) {
         CoronaCountryModel model = newStats.get(record.get(COUNTRY));
         int death = (!record.get(record.size() - 1).isEmpty()) ? Integer.parseInt(record.get(record.size() - 1)) : 0;
-        if(model.getDeath() > 0) death += model.getDeath();
+        int prevDeath = death - Integer.parseInt(record.get(record.size() - 2));
+        if (model.getDeath() > 0) death += model.getDeath();
+        if (model.getDeathDiffFromPrevDay() > 0) prevDeath += model.getDeathDiffFromPrevDay();
         model.setDeath(death);
+        model.setDeathDiffFromPrevDay(prevDeath);
         if(!record.get(STATE).isEmpty()) setCoronaStateModelDeathData(record, model);
     }
 

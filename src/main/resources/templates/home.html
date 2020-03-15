@@ -33,6 +33,10 @@
             <span>Total Deaths : </span>
             <span th:text="${totalDeaths}"></span>
         </p>
+        <p>
+            <span>Total Deaths Today : </span>
+            <span th:text="${totalDeathsToday}"></span>
+        </p>
     </div>
 
     <table class="table">
@@ -41,6 +45,7 @@
             <th>Total cases reported</th>
             <th>Changes since last day</th>
             <th>Total Death(s)</th>
+            <th>Total Death(s) Today</th>
         </tr>
         <tr th:each="locationsStat : ${locationsStats}">
             <td th:text="${locationsStat.country}"></td>
@@ -49,6 +54,9 @@
             <td th:if="${locationsStat.diffFromPrevDay > 0}"><span th:text="${locationsStat.diffFromPrevDay}"></span><img src="sort-up.png" class="iconStyle"></img></td>
             <td th:if="${locationsStat.diffFromPrevDay < 0}"><span th:text="${-locationsStat.diffFromPrevDay}"></span><img src="sort-down.png" class="iconStyle"></img></td>
             <td th:text="${locationsStat.death}"></td>
+            <td th:if="${locationsStat.deathDiffFromPrevDay == 0}">0</td>
+            <td th:if="${locationsStat.deathDiffFromPrevDay > 0}"><span th:text="${locationsStat.deathDiffFromPrevDay}"></span><img src="sort-up.png" class="iconStyle"></img></td>
+            <td th:if="${locationsStat.deathDiffFromPrevDay < 0}"><span th:text="${-locationsStat.deathDiffFromPrevDay}"></span><img src="sort-down.png" class="iconStyle"></img></td>
         </tr>
     </table>
 </div>

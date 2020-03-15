@@ -12,6 +12,7 @@ public class CoronaCountryModel {
     private Double longitude;
     private Double latitude;
     private int death;
+    private int deathDiffFromPrevDay;
 
     public String getCountry() {
         return country;
@@ -77,6 +78,14 @@ public class CoronaCountryModel {
         this.death = death;
     }
 
+    public int getDeathDiffFromPrevDay() {
+        return deathDiffFromPrevDay;
+    }
+
+    public void setDeathDiffFromPrevDay(int deathDiffFromPrevDay) {
+        this.deathDiffFromPrevDay = deathDiffFromPrevDay;
+    }
+
     @Override
     public String toString() {
         return "CoronaCountryModel{" +
@@ -88,6 +97,7 @@ public class CoronaCountryModel {
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", death=" + death +
+                ", deathDiffFromPrevDay=" + deathDiffFromPrevDay +
                 '}';
     }
 }
