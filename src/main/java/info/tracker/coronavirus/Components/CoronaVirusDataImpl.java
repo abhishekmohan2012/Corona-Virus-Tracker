@@ -41,8 +41,10 @@ public class CoronaVirusDataImpl implements CoronaVirusData, Constants {
 
     private CoronaCountryModel setCoronaCountyModel(CSVRecord record) {
         CoronaCountryModel model;
-        int latestCase = Integer.parseInt(record.get(record.size() - 1));
-        int prevDayCase = Integer.parseInt(record.get(record.size() - 2));
+        int latestCase = (!record.get(record.size() - 1).isEmpty()) ?
+                Integer.parseInt(record.get(record.size() - 1)) : 0;
+        int prevDayCase = (!record.get(record.size() - 2).isEmpty()) ?
+                Integer.parseInt(record.get(record.size() - 2)) : 0;
         if (newStats.containsKey(record.get(COUNTRY))) {
             model = newStats.get(record.get(COUNTRY));
             boolean valueUpdated = (!record.get(record.size() - 1).isEmpty());
